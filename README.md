@@ -64,7 +64,7 @@ This will display help for the tool. Here are all the switches it supports.
 | `-no-color`             | disable colors in output                           | `notify -nc`                          |
 | `-provider-config`      | provider config path                               | `notify -pc provider.yaml`            |
 | `-provider`             | provider to send the notification to (optional)    | `notify -p slack,telegram`            |
-| `-proxy`                | http proxy to use with notify                      | `notify -proxy http://127.0.0.1:8080` |
+| `-proxy`                | HTTP/SOCKSv5 proxy to use with notify              | `notify -proxy http://127.0.0.1:8080` |
 | `-rate-limit`           | maximum number of HTTP requests to send per second | `notify -rl 1`                        |
 | `-silent`               | enable silent mode                                 | `notify -silent`                      |
 | `-verbose`              | enable verbose mode                                | `notify -verbose`                     |
@@ -149,6 +149,15 @@ teams:
     teams_webhook_url: "https://<domain>.webhook.office.com/webhookb2/xx@xx/IncomingWebhook/xx"
     teams_format: "{{data}}"
 
+gotify:
+  - id: 'gotify'
+    gotify_host: 'XXXXXX'
+    gotify_port: '80'
+    gotify_token: 'XXXXXX'
+    gotify_format: '{{data}}'
+    gotify_disabletls: false
+    gotify_title: "recon"
+
 custom:
   - id: webhook
     custom_webhook_url: http://host/api/webhook
@@ -184,7 +193,7 @@ Notify supports piping output of any tool or output file and send it to configur
 ### Send notification using piped(stdin) output
 
 ```sh
-subfinder -d hackerone.com | notify
+subfinder -d hackerone.com | notify -bulk
 ```
 
 <h1 align="left">
